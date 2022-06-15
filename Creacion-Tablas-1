@@ -1,0 +1,87 @@
+CREATE TABLE Seiyuu Original (
+  Seiyuu_Orig_id int (10) autoincrement,
+  Nombre varchar (100) not null,
+  Personaje varchar (100) not null
+);
+
+CREATE TABLE Origen  (
+  Origen_id int (10) autoincrement,
+  Campo varchar (100) not null
+);
+
+CREATE TABLE Sinopsis (
+  Sinopsis_id int (10) autoincrement,
+  Contenido varchar (255) not null 
+);
+
+CREATE TABLE Status  (
+  Status_id int (10) autoincrement,
+  Estado varchar (50) not null
+);
+
+CREATE TABLE Publicacion  (
+  Pub_id int (10) autoincrement,
+  Campo varchar  (50) not null
+);
+
+CREATE TABLE Generos (
+  Generos_id int (10) autoincrement,
+  Genero_tipo varchar (50) not null
+);
+
+CREATE TABLE Airing (
+  Aire_id int (10) autoincrement,
+  Status boolean  not null
+);
+
+CREATE TABLE ProducidoX (
+  Producer_id int autoincrement,
+  Nombre_Productora varchar (50) not null
+);
+
+CREATE TABLE Studio (
+  Studio_id int autoincremet,
+  Nombre_Studio varchar (50) not null
+);
+
+CREATE TABLE Rating (
+  Rating_id int (10) autoincrement,
+  Calificacion varchar (100) not null
+);
+
+CREATE TABLE LicenciadoX (
+  Licencia_id int autoincrement,
+  Licenciatario  varchar (50) not null
+);
+
+CREATE TABLE Animes (
+  Anime_id int  autoincrement,
+  Titulo varchar (100) not null,
+  Episodios int (10000) not null,
+  Start_Date date not null,
+  End_Date date not null,
+  Rank int (100) not null,
+  Duracion varchar (100) not null,
+  Studio_id int (10),
+  LicenciadoX int (10),
+  Status_id int (10),
+  Origen_id int (10),
+  Pub_id int (10),
+  Aire_id int (10),
+  Rating_id int (10),
+  Sinopsis _id int (10),
+  Generos _id int (10),
+  Producer_id int (10),
+  Score` int (100) not null,
+  Seiyuu_Orig_id int (10),
+  FOREIGN KEY (Producer_id) REFERENCES ProducidoX (Producer_id),
+  FOREIGN KEY (Studio_id) REFERENCES Studio(Studio_id),
+  FOREIGN KEY (Pub_id) REFERENCES Publicacion (Pub_id),
+  FOREIGN KEY (Rating_id) REFERENCES Rating (Rating_id),
+  FOREIGN KEY (Generos _id) REFERENCES Generos(Generos_id),
+  FOREIGN KEY (Aire_id) REFERENCES Airing (Aire_id),
+  FOREIGN KEY (Sinopsis _id) REFERENCES Sinopsis (Sinopsis_id),
+  FOREIGN KEY (Origen_id) REFERENCES Origen (Origen_id),
+  FOREIGN KEY (Status_id) REFERENCES Status (Status_id),
+  FOREIGN KEY (Seiyuu_Orig_id) REFERENCES Seiyuu Original (Seiyuu_Orig_id),
+  FOREIGN KEY (LicenciadoX) REFERENCES LicenciadoX (Licencia_id));
