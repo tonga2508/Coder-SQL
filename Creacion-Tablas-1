@@ -1,70 +1,60 @@
-create schema if not exists coder-tp;
-
-use coder-tp;
-
-CREATE TABLE Seiyuu Original (
-  Seiyuu_Orig_id int (10) autoincrement,
+create schema codertp;
+use codertp;
+CREATE TABLE SeiyuuOriginal (
+  SeiyuuOrig_id int (10) auto_increment primary key,
   Nombre varchar (100) not null,
   Personaje varchar (100) not null
 );
-
 CREATE TABLE Origen  (
-  Origen_id int (10) autoincrement,
+  Origen_id int (10) auto_increment primary key,
   Campo varchar (100) not null
 );
-
 CREATE TABLE Sinopsis (
-  Sinopsis_id int (10) autoincrement,
+  Sinopsis_id int (10) auto_increment primary key,
   Contenido varchar (255) not null 
 );
-
 CREATE TABLE Status  (
-  Status_id int (10) autoincrement,
+  Status_id int (10) auto_increment primary key,
   Estado varchar (50) not null
 );
-
 CREATE TABLE Publicacion  (
-  Pub_id int (10) autoincrement,
+  Pub_id int (10) auto_increment primary key,
   Campo varchar  (50) not null
 );
-
 CREATE TABLE Generos (
-  Generos_id int (10) autoincrement,
+  Generos_id int (10) auto_increment primary key,
   Genero_tipo varchar (50) not null
 );
-
 CREATE TABLE Airing (
-  Aire_id int (10) autoincrement,
+  Aire_id int (10) auto_increment primary key,
   Status boolean  not null
 );
 
 CREATE TABLE ProducidoX (
-  Producer_id int autoincrement,
+  Producer_id int auto_increment primary key,
   Nombre_Productora varchar (50) not null
 );
 
 CREATE TABLE Studio (
-  Studio_id int autoincremet,
+  Studio_id int auto_increment primary key,
   Nombre_Studio varchar (50) not null
 );
 
 CREATE TABLE Rating (
-  Rating_id int (10) autoincrement,
+  Rating_id int (10) auto_increment primary key,
   Calificacion varchar (100) not null
 );
 
 CREATE TABLE LicenciadoX (
-  Licencia_id int autoincrement,
-  Licenciatario  varchar (50) not null
-);
-
+  Licencia_id int auto_increment primary key,
+  Licenciatario  varchar (50) not null);
 CREATE TABLE Animes (
-  Anime_id int  autoincrement,
+  Anime_id int  auto_increment primary key,
   Titulo varchar (100) not null,
-  Episodios int (10000) not null,
+  Episodios bigint not null,
   Start_Date date not null,
   End_Date date not null,
-  Rank int (100) not null,
+  ranking int (100) not null,
   Duracion varchar (100) not null,
   Studio_id int (10),
   LicenciadoX int (10),
@@ -73,19 +63,20 @@ CREATE TABLE Animes (
   Pub_id int (10),
   Aire_id int (10),
   Rating_id int (10),
-  Sinopsis _id int (10),
-  Generos _id int (10),
+  Sinopsis_id int (10),
+  Generos_id int (10),
   Producer_id int (10),
   Score int (100) not null,
-  Seiyuu_Orig_id int (10),
+  SeiyuuOrig_id int (10),
   FOREIGN KEY (Producer_id) REFERENCES ProducidoX (Producer_id),
   FOREIGN KEY (Studio_id) REFERENCES Studio(Studio_id),
   FOREIGN KEY (Pub_id) REFERENCES Publicacion (Pub_id),
   FOREIGN KEY (Rating_id) REFERENCES Rating (Rating_id),
-  FOREIGN KEY (Generos _id) REFERENCES Generos(Generos_id),
+  FOREIGN KEY (Generos_id) REFERENCES Generos(Generos_id),
   FOREIGN KEY (Aire_id) REFERENCES Airing (Aire_id),
-  FOREIGN KEY (Sinopsis _id) REFERENCES Sinopsis (Sinopsis_id),
+  FOREIGN KEY (Sinopsis_id) REFERENCES Sinopsis (Sinopsis_id),
   FOREIGN KEY (Origen_id) REFERENCES Origen (Origen_id),
   FOREIGN KEY (Status_id) REFERENCES Status (Status_id),
-  FOREIGN KEY (Seiyuu_Orig_id) REFERENCES Seiyuu Original (Seiyuu_Orig_id),
+  FOREIGN KEY (SeiyuuOrig_id) REFERENCES SeiyuuOriginal (SeiyuuOrig_id),
   FOREIGN KEY (LicenciadoX) REFERENCES LicenciadoX (Licencia_id));
+ 
