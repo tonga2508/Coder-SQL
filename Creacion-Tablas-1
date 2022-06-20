@@ -1,3 +1,7 @@
+create schema if not exists coder-tp;
+
+use coder-tp;
+
 CREATE TABLE Seiyuu Original (
   Seiyuu_Orig_id int (10) autoincrement,
   Nombre varchar (100) not null,
@@ -72,7 +76,7 @@ CREATE TABLE Animes (
   Sinopsis _id int (10),
   Generos _id int (10),
   Producer_id int (10),
-  Score` int (100) not null,
+  Score int (100) not null,
   Seiyuu_Orig_id int (10),
   FOREIGN KEY (Producer_id) REFERENCES ProducidoX (Producer_id),
   FOREIGN KEY (Studio_id) REFERENCES Studio(Studio_id),
