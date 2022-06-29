@@ -80,5 +80,5 @@ CREATE TABLE Animes (
   FOREIGN KEY (Origen_id) REFERENCES Origen (Origen_id),
   FOREIGN KEY (Status_id) REFERENCES Status (Status_id),
   FOREIGN KEY (SeiyuuOrig_id) REFERENCES SeiyuuOriginal (SeiyuuOrig_id),
-  FOREIGN KEY (LicenciadoX) REFERENCES LicenciadoX (Licencia_id));
+  FOREIGN KEY (Licenciadox) REFERENCES Licenciadox (Licencia_id));
  
