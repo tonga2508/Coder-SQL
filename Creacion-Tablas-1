@@ -51,6 +51,7 @@ CREATE TABLE LicenciadoX (
 );
 
 CREATE TABLE Animes (
+  Anime_id int auto_increment primary key,
   Titulo varchar (100) not null,
   Episodios bigint not null,
   Start_Date date not null,
@@ -69,7 +70,6 @@ CREATE TABLE Animes (
   Status_id int,
   SeiyuuOrig_id int,
   Licencia_id int,
-  Anime_id int auto_increment primary key,
   FOREIGN KEY (Producer_id) REFERENCES producidox(Producer_id),
   FOREIGN KEY (Studio_id) REFERENCES studio(Studio_id),
   FOREIGN KEY (Pub_id) REFERENCES publicacion(Pub_id),
