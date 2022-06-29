@@ -27,7 +27,7 @@ CREATE TABLE Generos (
 );
 CREATE TABLE Airing (
   Aire_id int auto_increment primary key,
-  Status boolean  not null
+  Status varchar (100)  not null
 );
 CREATE TABLE ProducidoX (
   Producer_id int auto_increment primary key,
