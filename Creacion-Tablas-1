@@ -1,55 +1,50 @@
 create schema codertp;
 use codertp;
 CREATE TABLE SeiyuuOriginal (
-  SeiyuuOrig_id int (10) auto_increment primary key,
+  SeiyuuOrig_id int auto_increment primary key,
   Nombre varchar (100) not null,
   Personaje varchar (100) not null
 );
 CREATE TABLE Origen  (
-  Origen_id int (10) auto_increment primary key,
+  Origen_id int auto_increment primary key,
   Campo varchar (100) not null
 );
 CREATE TABLE Sinopsis (
-  Sinopsis_id int (10) auto_increment primary key,
+  Sinopsis_id int auto_increment primary key,
   Contenido varchar (255) not null 
 );
 CREATE TABLE Status  (
-  Status_id int (10) auto_increment primary key,
+  Status_id int auto_increment primary key,
   Estado varchar (50) not null
 );
 CREATE TABLE Publicacion  (
-  Pub_id int (10) auto_increment primary key,
+  Pub_id int auto_increment primary key,
   Campo varchar  (50) not null
 );
 CREATE TABLE Generos (
-  Generos_id int (10) auto_increment primary key,
+  Generos_id int auto_increment primary key,
   Genero_tipo varchar (50) not null
 );
 CREATE TABLE Airing (
-  Aire_id int (10) auto_increment primary key,
+  Aire_id int auto_increment primary key,
   Status boolean  not null
 );
-
 CREATE TABLE ProducidoX (
   Producer_id int auto_increment primary key,
   Nombre_Productora varchar (50) not null
 );
-
 CREATE TABLE Studio (
   Studio_id int auto_increment primary key,
   Nombre_Studio varchar (50) not null
 );
-
 CREATE TABLE Rating (
-  Rating_id int (10) auto_increment primary key,
+  Rating_id int auto_increment primary key,
   Calificacion varchar (100) not null
 );
-
 CREATE TABLE LicenciadoX (
   Licencia_id int auto_increment primary key,
   Licenciatario  varchar (50) not null
 );
-
 CREATE TABLE Animes (
   Anime_id int auto_increment primary key,
   Titulo varchar (100) not null,
