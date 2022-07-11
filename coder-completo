@@ -422,7 +422,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`Gaston`@`%` SQL SECURITY DEFINER */
+
 /*!50001 VIEW `100caps` AS select `animes`.`Titulo` AS `Titulo`,`animes`.`Episodios` AS `Episodios` from `animes` where (`animes`.`Episodios` >= 100) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -440,7 +440,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`Gaston`@`%` SQL SECURITY DEFINER */
+
 /*!50001 VIEW `generosytitulos` AS select `animes`.`Titulo` AS `Titulo`,`generos`.`Genero_tipo` AS `Genero_tipo` from ((`generos` join `animesgenero` on((`generos`.`Generos_id` = `animesgenero`.`id_Generos`))) join `animes` on((`animesgenero`.`id_Anime` = `animes`.`Anime_id`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -458,7 +458,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`Gaston`@`%` SQL SECURITY DEFINER */
+
 /*!50001 VIEW `ranking` AS select `animes`.`Titulo` AS `Titulo`,`animes`.`ranking` AS `Ranking` from `animes` order by `animes`.`ranking` desc */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -476,7 +476,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`Gaston`@`%` SQL SECURITY DEFINER */
+
 /*!50001 VIEW `sinopsys` AS select `animes`.`Titulo` AS `Titulo`,`sinopsis`.`Contenido` AS `contenido` from (`animes` left join `sinopsis` on((`animes`.`Anime_id` = `sinopsis`.`Sinopsis_id`))) order by `animes`.`Titulo` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -494,7 +494,7 @@ UNLOCK TABLES;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`Gaston`@`%` SQL SECURITY DEFINER */
+
 /*!50001 VIEW `sinopyrating` AS select `animes`.`Titulo` AS `Titulo`,`sinopsis`.`Contenido` AS `contenido`,`rating`.`Calificacion` AS `calificacion` from ((`animes` left join `sinopsis` on((`animes`.`Anime_id` = `sinopsis`.`Sinopsis_id`))) left join `rating` on((`animes`.`Anime_id` = `rating`.`Rating_id`))) order by `animes`.`Titulo` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
