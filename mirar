@@ -1,0 +1,43 @@
+//https://medium.com/@sajithekanayaka/mysql-logging-table-changes-into-another-table-using-triggers-5215c77083e5//
+
+
+CREATE TABLE data_log (
+   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `action` VARCHAR(255),
+  `action_time`   TIMESTAMP,
+  `Anime_id` int NOT NULL,
+  `Titulo` varchar(100) NOT NULL,
+  `Episodios` bigint NOT NULL,
+  `Start_Date` date NOT NULL,
+  `End_Date` date NOT NULL,
+  `ranking` int NOT NULL,
+  `Duracion` varchar(100) NOT NULL,
+  `Score` int NOT NULL
+   );
+   
+DELIMITER $$
+CREATE TRIGGER ai_data AFTER INSERT ON animes
+FOR EACH ROW
+BEGIN
+  INSERT INTO data_log (action, action_time, Anime_id, Titulo, Episodios, Start_Date, End_Date, ranking, Duracion, Score)
+  VALUES('insert', NOW(), NEW.Anime_id, NEW.Titulo, NEW.Episodios, NEW.Start_Date, New.End_Date, NEW.ranking, NEW.Duracion, NEW.Score);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER au_data AFTER UPDATE ON animes
+FOR EACH ROW
+BEGIN
+  INSERT INTO data_log (action, action_time, Anime_id, Titulo, Episodios, Start_Date, End_Date, ranking, Duracion, Score)
+  VALUES('update', NOW(), NEW.Anime_id, NEW.Titulo, NEW.Episodios, NEW.Start_Date, New.End_Date, NEW.ranking, NEW.Duracion, NEW.Score);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER ad_data AFTER DELETE ON animes
+FOR EACH ROW
+BEGIN
+  INSERT INTO data_log (action, action_time, Anime_id, timestamp, Titulo, Episodios, Start_Date, End_Date, ranking, Duracion, Score)
+  VALUES('delete', NOW(), OLD.Anime_id, OLD.Titulo, OLD.Episodios, OLD.Start_Date, OLD.End_Date, OLD.ranking, OLD.Duracion, OLD.Score);
+END$$
+DELIMITER ;
