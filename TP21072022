@@ -68,7 +68,46 @@ GRANT select, show view ON codertp.* TO 'Userd2'@'%';
 --
 -- ---------------------------------------------------------------------------------------------------------
 -- ---------------------------------------------------------------------------------------------------------
+-- -----------------------SENTENCIAS DEL SUBLENGUAJE TCL----------------------------------------------------
+-- Insertamos los siguientes registros en la tabla anime:
+-- INSERT INTO `animes` VALUES (60,'Death Note',37,'2006-10-04','2007-06-27',51,'23 min. per ep.',9),
+-- (61,'Death Note',37,'2006-10-04','2007-06-27',51,'23 min. per ep.',9),
+-- (62,'Death Note',37,'2006-10-04','2007-06-27',51,'23 min. per ep.',9),
+-- (63,'Death Note',37,'2006-10-04','2007-06-27',51,'23 min. per ep.',9);
 --
+-- Podemos utilizar la siguiente consulta para estar seguros que se sumaron esos 4 registros: 
+-- SELECT * FROM animes order by Anime_id limit 70;
+--
+-- Ahora vamos a iniciar una transaccion donde borraremos los ultimos 4 registros:
+-- START TRANSACTION;
+-- DELETE FROM animes WHERE Anime_id in (60,61,62,63);
+--
+-- Ahora utilizando la siguiente sentencia vamos a recuperar esos 4 registros borrados y luego commiteamos:
+-- rollback;
+-- commit;
+-- 
+-- Utilizamos la siguiente sentencia para ver lo comentado anteriormente:
+-- SELECT * FROM animes order by Anime_id limit 70;
+-- -------------------------------------------------------------------------------------------------
+-- Aca iniciamos una transaccion, luego sumamos 4 registros y creamos un savepoint. Luego creamos otros
+-- 4 y volvemos a crear otro savepoint. Al final nos desacemos el savepoint insert1.
+-- Start transaction;
+-- INSERT INTO `animes` VALUES (64,'Death Note',37,'2006-10-04','2007-06-27',51,'23 min. per ep.',9);
+-- INSERT INTO `animes` VALUES (65,'Death Note',37,'2006-10-04','2007-06-27',51,'23 min. per ep.',9);
+-- INSERT INTO `animes` VALUES (66,'Death Note',37,'2006-10-04','2007-06-27',51,'23 min. per ep.',9);
+-- INSERT INTO `animes` VALUES (67,'Death Note',37,'2006-10-04','2007-06-27',51,'23 min. per ep.',9);
+-- savepoint insert1;
+-- INSERT INTO `animes` VALUES (68,'Death Note',37,'2006-10-04','2007-06-27',51,'23 min. per ep.',9);
+-- INSERT INTO `animes` VALUES (69,'Death Note',37,'2006-10-04','2007-06-27',51,'23 min. per ep.',9);
+-- INSERT INTO `animes` VALUES (70,'Death Note',37,'2006-10-04','2007-06-27',51,'23 min. per ep.',9);
+-- INSERT INTO `animes` VALUES (71,'Death Note',37,'2006-10-04','2007-06-27',51,'23 min. per ep.',9);
+-- savepoint insert2;
+-- release savepoint insert1;
+--
+-- --------------------------------------------------------------------------------------------------------
+-- --------------------------------------------------------------------------------------------------------
+--
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
