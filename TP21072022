@@ -158,7 +158,7 @@ UNLOCK TABLES;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`Gaston`@`%`*/ /*!50003 TRIGGER `ai_data` BEFORE INSERT ON `animes` FOR EACH ROW BEGIN
-  INSERT INTO data_log (action, user, action_time, Anime_id, Titulo, Episodios, Start_Date, End_Date, ranking, Duracion, Score)
+  INSERT INTO data_log_anime (action, user, action_time, Anime_id, Titulo, Episodios, Start_Date, End_Date, ranking, Duracion, Score)
   VALUES('insert', current_user(), now(), NEW.Anime_id, NEW.Titulo, NEW.Episodios, NEW.Start_Date, New.End_Date, NEW.ranking, NEW.Duracion, NEW.Score);
 END */;;
 DELIMITER ;
@@ -176,7 +176,7 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`Gaston`@`%`*/ /*!50003 TRIGGER `au_data` AFTER UPDATE ON `animes` FOR EACH ROW BEGIN
-  INSERT INTO data_log (action, user, action_time, Anime_id, Titulo, Episodios, Start_Date, End_Date, ranking, Duracion, Score)
+  INSERT INTO data_log_anime (action, user, action_time, Anime_id, Titulo, Episodios, Start_Date, End_Date, ranking, Duracion, Score)
   VALUES('update', current_user(), NOW(), NEW.Anime_id, NEW.Titulo, NEW.Episodios, NEW.Start_Date, New.End_Date, NEW.ranking, NEW.Duracion, NEW.Score);
 END */;;
 DELIMITER ;
@@ -194,7 +194,7 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`Gaston`@`%`*/ /*!50003 TRIGGER `ad_data` AFTER DELETE ON `animes` FOR EACH ROW BEGIN
-  INSERT INTO data_log (action, user, action_time, Anime_id, Titulo, Episodios, Start_Date, End_Date, ranking, Duracion, Score)
+  INSERT INTO data_log_anime (action, user, action_time, Anime_id, Titulo, Episodios, Start_Date, End_Date, ranking, Duracion, Score)
   VALUES('delete', current_user(), NOW(), OLD.Anime_id, OLD.Titulo, OLD.Episodios, OLD.Start_Date, OLD.End_Date, OLD.ranking, OLD.Duracion, OLD.Score);
 END */;;
 DELIMITER ;
@@ -492,7 +492,7 @@ UNLOCK TABLES;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`Gaston`@`%`*/ /*!50003 TRIGGER `tr_insert` BEFORE INSERT ON `seiyuuoriginal` FOR EACH ROW BEGIN
-  INSERT INTO data_log (action, user, action_time, SeiyuuOrig_id, Nombre, Personaje)
+  INSERT INTO data_log_seiyuu (action, user, action_time, SeiyuuOrig_id, Nombre, Personaje)
   VALUES('insert', current_user(), now(), new.SeiyuuOrig_id, new.Nombre, new.Personaje);
 END */;;
 DELIMITER ;
@@ -510,7 +510,7 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`Gaston`@`%`*/ /*!50003 TRIGGER `tr_update` AFTER UPDATE ON `seiyuuoriginal` FOR EACH ROW BEGIN
-  INSERT INTO data_log (action, user, action_time, SeiyuuOrig_id, Nombre, Personaje)
+  INSERT INTO data_log_seiyu (action, user, action_time, SeiyuuOrig_id, Nombre, Personaje)
   VALUES('update', current_user(), NOW(), new.SeiyuuOrig_id, new.Nombre, new.Personaje);
 END */;;
 DELIMITER ;
@@ -528,7 +528,7 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`Gaston`@`%`*/ /*!50003 TRIGGER `tr_delete` AFTER DELETE ON `seiyuuoriginal` FOR EACH ROW BEGIN
-  INSERT INTO data_log (action, user, action_time, SeiyuuOrig_id, Nombre, Personaje)
+  INSERT INTO data_log_seiyuu (action, user, action_time, SeiyuuOrig_id, Nombre, Personaje)
   VALUES('delete', current_user(), NOW(), old.SeiyuuOrig_id, old.Nombre, old.Personaje);
 END */;;
 DELIMITER ;
