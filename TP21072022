@@ -64,7 +64,7 @@ GRANT create, insert, select, update ON codertp.* TO 'Userd1'@'%';
 CREATE USER IF NOT EXISTS Userd2 IDENTIFIED BY 'Popurri2';
 GRANT select, show view ON codertp.* TO 'Userd2'@'%';
 
--- En ninguno de los 2 casos pueden borrar.
+-- En ninguno de los 2 estas cuentas pueden borrar.
 --
 -- ---------------------------------------------------------------------------------------------------------
 -- ---------------------------------------------------------------------------------------------------------
