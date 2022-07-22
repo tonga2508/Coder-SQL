@@ -1,14 +1,19 @@
+-- ----------------------------------------------------------------------------------------------------------
+-- -------------------------Host: eltonga.zapto.org    Database: codertp-------------------------------------
+-- ----------------------------------------------------------------------------------------------------------
 --
--- Host: eltonga.zapto.org    Database: codertp
--- ------------------------------------------------------
---
--- Creacion de la DB  y Usuario con permisos para el uso de la misma
+-- ----------------------------------------------------------------------------------------------------------
+-- Scirpt de creacion de la DB  y Usuario con permisos solo para el uso de la misma en cualquier importacion.
+-- ----------------------------------------------------------------------------------------------------------
 --
 CREATE DATABASE  IF NOT EXISTS `codertp` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `codertp`;
 CREATE USER IF NOT EXISTS Gaston IDENTIFIED BY 'colegio123';
 GRANT ALL PRIVILEGES ON codertp.* TO 'Gaston'@'%';
-
+--
+-- ----------------------------------------------------------------------------------------------------- 
+-- -------------Descripcion de Stored Procedures, Functions, Views y Triggers---------------------------
+--------------------------------------------------------------------------------------------------------
 -- 
 -- Modelo de consulta para llamar a SP:
 -- Para agregar 1 anime: 
@@ -39,12 +44,18 @@ GRANT ALL PRIVILEGES ON codertp.* TO 'Gaston'@'%';
 -- ranking muestra el titulo y el ranking.
 -- sinopsys muestra el titulo y sinopsis correspondiente.
 -- sinopyreating nos muestra titulo, sinopsis y su calificacion.
---
---
+-- 
+-- Triggers:
+-- Se crearon 6 triggers. Los mismos funcionan de la siguiente manera:
+-- Los primeros 3 se encuentran en la tabla animes. El primero utiliza un before y los restantes un AFTER
+-- Estos escriben en la tabla data_log_anime. Su funcion es dejar logueado la creacion, borrado y update 
+-- en la tabla anime.
+-- Los 3 restantes tienen la misma funcion que los anteriores, pero escriben en la tabla data_log_seiyuu y
+-- se encuentran en la tabla seiyuuoriginal.
 -- -------------------------------------------------------------------------------------------------------
 -- -------------------------------------------------------------------------------------------------------
+-- ----------------------------Creacion de usuarios:------------------------------------------------------
 --
--- Creacion de usuarios:
 -- Usuario Con permisos para crear, insertar, updatear y seleccionar:
 CREATE USER IF NOT EXISTS Userd1 IDENTIFIED BY 'Popurri1';
 GRANT create, insert, select, update ON codertp.* TO 'Userd1'@'%';
@@ -56,7 +67,8 @@ GRANT select, show view ON codertp.* TO 'Userd2'@'%';
 -- En ninguno de los 2 casos pueden borrar.
 --
 -- ---------------------------------------------------------------------------------------------------------
-
+-- ---------------------------------------------------------------------------------------------------------
+--
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
