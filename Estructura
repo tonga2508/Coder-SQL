@@ -1,0 +1,707 @@
+-- MySQL dump 10.13  Distrib 8.0.29, for Win64 (x86_64)
+--
+-- Host: localhost    Database: codertp
+-- ------------------------------------------------------
+-- Server version	8.0.29
+CREATE DATABASE  IF NOT EXISTS `codertp` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `codertp`;
+CREATE USER IF NOT EXISTS Gaston IDENTIFIED BY 'colegio123';
+GRANT ALL PRIVILEGES ON codertp.* TO 'Gaston'@'%';
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Temporary view structure for view `100caps`
+--
+
+DROP TABLE IF EXISTS `100caps`;
+/*!50001 DROP VIEW IF EXISTS `100caps`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `100caps` AS SELECT 
+ 1 AS `Titulo`,
+ 1 AS `Episodios`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `airing`
+--
+
+DROP TABLE IF EXISTS `airing`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `airing` (
+  `Aire_id` int NOT NULL AUTO_INCREMENT,
+  `Status` varchar(100) NOT NULL,
+  PRIMARY KEY (`Aire_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary view structure for view `animelevel`
+--
+
+DROP TABLE IF EXISTS `animelevel`;
+/*!50001 DROP VIEW IF EXISTS `animelevel`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `animelevel` AS SELECT 
+ 1 AS `Titulo`,
+ 1 AS `ranking`,
+ 1 AS `AnimeLevel(ranking)`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `animes`
+--
+
+DROP TABLE IF EXISTS `animes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `animes` (
+  `Anime_id` int NOT NULL AUTO_INCREMENT,
+  `Titulo` varchar(100) NOT NULL,
+  `Episodios` bigint NOT NULL,
+  `Start_Date` date NOT NULL,
+  `End_Date` date NOT NULL,
+  `ranking` int NOT NULL,
+  `Duracion` varchar(100) NOT NULL,
+  `Score` int NOT NULL,
+  PRIMARY KEY (`Anime_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`Gaston`@`%`*/ /*!50003 TRIGGER `ai_data` BEFORE INSERT ON `animes` FOR EACH ROW BEGIN
+  INSERT INTO data_log_anime (action, user, action_time, Anime_id, Titulo, Episodios, Start_Date, End_Date, ranking, Duracion, Score)
+  VALUES('insert', current_user(), now(), NEW.Anime_id, NEW.Titulo, NEW.Episodios, NEW.Start_Date, New.End_Date, NEW.ranking, NEW.Duracion, NEW.Score);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`Gaston`@`%`*/ /*!50003 TRIGGER `au_data` AFTER UPDATE ON `animes` FOR EACH ROW BEGIN
+  INSERT INTO data_log_anime (action, user, action_time, Anime_id, Titulo, Episodios, Start_Date, End_Date, ranking, Duracion, Score)
+  VALUES('update', current_user(), NOW(), NEW.Anime_id, NEW.Titulo, NEW.Episodios, NEW.Start_Date, New.End_Date, NEW.ranking, NEW.Duracion, NEW.Score);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`Gaston`@`%`*/ /*!50003 TRIGGER `ad_data` AFTER DELETE ON `animes` FOR EACH ROW BEGIN
+  INSERT INTO data_log_anime (action, user, action_time, Anime_id, Titulo, Episodios, Start_Date, End_Date, ranking, Duracion, Score)
+  VALUES('delete', current_user(), NOW(), OLD.Anime_id, OLD.Titulo, OLD.Episodios, OLD.Start_Date, OLD.End_Date, OLD.ranking, OLD.Duracion, OLD.Score);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Table structure for table `animesgenero`
+--
+
+DROP TABLE IF EXISTS `animesgenero`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `animesgenero` (
+  `id_Anime` int DEFAULT NULL,
+  `id_Generos` int DEFAULT NULL,
+  UNIQUE KEY `id_anime_genero` (`id_Anime`,`id_Generos`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `data_log_anime`
+--
+
+DROP TABLE IF EXISTS `data_log_anime`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `data_log_anime` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `action` varchar(255) DEFAULT NULL,
+  `user` varchar(255) DEFAULT NULL,
+  `action_time` timestamp NULL DEFAULT NULL,
+  `Anime_id` int NOT NULL,
+  `Titulo` varchar(100) NOT NULL,
+  `Episodios` bigint NOT NULL,
+  `Start_Date` date NOT NULL,
+  `End_Date` date NOT NULL,
+  `ranking` int NOT NULL,
+  `Duracion` varchar(100) NOT NULL,
+  `Score` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `data_log_seiyuu`
+--
+
+DROP TABLE IF EXISTS `data_log_seiyuu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `data_log_seiyuu` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `action` varchar(255) DEFAULT NULL,
+  `user` varchar(255) DEFAULT NULL,
+  `action_time` timestamp NULL DEFAULT NULL,
+  `SeiyuuOrig_id` int NOT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
+  `personaje` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `generos`
+--
+
+DROP TABLE IF EXISTS `generos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `generos` (
+  `Generos_id` int NOT NULL AUTO_INCREMENT,
+  `Genero_tipo` varchar(50) NOT NULL,
+  PRIMARY KEY (`Generos_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary view structure for view `generosytitulos`
+--
+
+DROP TABLE IF EXISTS `generosytitulos`;
+/*!50001 DROP VIEW IF EXISTS `generosytitulos`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `generosytitulos` AS SELECT 
+ 1 AS `Titulo`,
+ 1 AS `Genero_tipo`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `licenciadox`
+--
+
+DROP TABLE IF EXISTS `licenciadox`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `licenciadox` (
+  `Licencia_id` int NOT NULL AUTO_INCREMENT,
+  `Licenciatario` varchar(50) NOT NULL,
+  PRIMARY KEY (`Licencia_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `origen`
+--
+
+DROP TABLE IF EXISTS `origen`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `origen` (
+  `Origen_id` int NOT NULL AUTO_INCREMENT,
+  `Campo` varchar(100) NOT NULL,
+  PRIMARY KEY (`Origen_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `producidox`
+--
+
+DROP TABLE IF EXISTS `producidox`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `producidox` (
+  `Producer_id` int NOT NULL AUTO_INCREMENT,
+  `Nombre_Productora` varchar(50) NOT NULL,
+  PRIMARY KEY (`Producer_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `publicacion`
+--
+
+DROP TABLE IF EXISTS `publicacion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `publicacion` (
+  `Pub_id` int NOT NULL AUTO_INCREMENT,
+  `Campo` varchar(50) NOT NULL,
+  PRIMARY KEY (`Pub_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary view structure for view `ranking`
+--
+
+DROP TABLE IF EXISTS `ranking`;
+/*!50001 DROP VIEW IF EXISTS `ranking`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `ranking` AS SELECT 
+ 1 AS `Titulo`,
+ 1 AS `Ranking`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `rating`
+--
+
+DROP TABLE IF EXISTS `rating`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `rating` (
+  `Rating_id` int NOT NULL AUTO_INCREMENT,
+  `Calificacion` varchar(100) NOT NULL,
+  PRIMARY KEY (`Rating_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `seiyuuoriginal`
+--
+
+DROP TABLE IF EXISTS `seiyuuoriginal`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `seiyuuoriginal` (
+  `SeiyuuOrig_id` int NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(100) NOT NULL,
+  `Personaje` varchar(100) NOT NULL,
+  PRIMARY KEY (`SeiyuuOrig_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`Gaston`@`%`*/ /*!50003 TRIGGER `tr_insert` BEFORE INSERT ON `seiyuuoriginal` FOR EACH ROW BEGIN
+  INSERT INTO data_log_seiyuu (action, user, action_time, SeiyuuOrig_id, Nombre, Personaje)
+  VALUES('insert', current_user(), now(), new.SeiyuuOrig_id, new.Nombre, new.Personaje);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`Gaston`@`%`*/ /*!50003 TRIGGER `tr_update` AFTER UPDATE ON `seiyuuoriginal` FOR EACH ROW BEGIN
+  INSERT INTO data_log_seiyu (action, user, action_time, SeiyuuOrig_id, Nombre, Personaje)
+  VALUES('update', current_user(), NOW(), new.SeiyuuOrig_id, new.Nombre, new.Personaje);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`Gaston`@`%`*/ /*!50003 TRIGGER `tr_delete` AFTER DELETE ON `seiyuuoriginal` FOR EACH ROW BEGIN
+  INSERT INTO data_log_seiyuu (action, user, action_time, SeiyuuOrig_id, Nombre, Personaje)
+  VALUES('delete', current_user(), NOW(), old.SeiyuuOrig_id, old.Nombre, old.Personaje);
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Table structure for table `sinopsis`
+--
+
+DROP TABLE IF EXISTS `sinopsis`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `sinopsis` (
+  `Sinopsis_id` int NOT NULL AUTO_INCREMENT,
+  `Contenido` varchar(255) NOT NULL,
+  PRIMARY KEY (`Sinopsis_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary view structure for view `sinopsys`
+--
+
+DROP TABLE IF EXISTS `sinopsys`;
+/*!50001 DROP VIEW IF EXISTS `sinopsys`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `sinopsys` AS SELECT 
+ 1 AS `Titulo`,
+ 1 AS `contenido`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `sinopyrating`
+--
+
+DROP TABLE IF EXISTS `sinopyrating`;
+/*!50001 DROP VIEW IF EXISTS `sinopyrating`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `sinopyrating` AS SELECT 
+ 1 AS `Titulo`,
+ 1 AS `contenido`,
+ 1 AS `calificacion`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `status`
+--
+
+DROP TABLE IF EXISTS `status`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `status` (
+  `Status_id` int NOT NULL AUTO_INCREMENT,
+  `Estado` varchar(50) NOT NULL,
+  PRIMARY KEY (`Status_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `studio`
+--
+
+DROP TABLE IF EXISTS `studio`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `studio` (
+  `Studio_id` int NOT NULL AUTO_INCREMENT,
+  `Nombre_Studio` varchar(50) NOT NULL,
+  PRIMARY KEY (`Studio_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping events for database 'codertp'
+--
+
+--
+-- Dumping routines for database 'codertp'
+--
+/*!50003 DROP FUNCTION IF EXISTS `FU_AnimeLevel` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`Gaston`@`%` FUNCTION `FU_AnimeLevel`(
+	ranking DECIMAL(10,2)
+) RETURNS varchar(20) CHARSET utf8mb4
+    DETERMINISTIC
+BEGIN
+    DECLARE AnimeLevel VARCHAR(20);
+
+    IF ranking <= 10 THEN
+		SET AnimeLevel = 'PLATINUM';
+    ELSEIF (ranking >= 11 AND 
+			ranking <= 100) THEN
+        SET AnimeLevel = 'GOLD';
+    ELSEIF ranking > 100 THEN
+        SET AnimeLevel = 'SILVER';
+    END IF;
+	-- return the customer level
+	RETURN (AnimeLevel);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `pitagoras` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`Gaston`@`%` FUNCTION `pitagoras`(alto INT, largo INT) RETURNS float
+    NO SQL
+BEGIN
+	declare resultado float;
+    declare hipotenusa float;
+    set resultado = sqrt(pow (alto,2) + pow(largo,2));
+RETURN resultado;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `Borrar_Anime` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`Gaston`@`%` PROCEDURE `Borrar_Anime`( IN p_Anime_id INT)
+BEGIN
+ DELETE FROM animes
+ WHERE Anime_id=p_Anime_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `insert_Anime` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`Gaston`@`%` PROCEDURE `insert_Anime`(in p_Anime_id int, in p_Titulo varchar(100), in p_Episodios bigint,in p_Start_Date date, in p_End_Date date, in p_ranking int, in p_Duracion varchar(100), in p_Score int)
+BEGIN
+ insert into animes(Anime_id, Titulo, Episodios, Start_Date, End_Date, ranking, Duracion, Score) values (p_Anime_id, p_Titulo, p_Episodios, p_Start_Date, p_End_Date, p_ranking, p_Duracion, p_Score);
+ END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `selector` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`Gaston`@`%` PROCEDURE `selector`(in animeid int)
+BEGIN
+select * FROM codertp.animes where anime_id = animeid;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `selector2` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`Gaston`@`%` PROCEDURE `selector2`(in genero varchar(255))
+BEGIN
+SELECT 
+        `animes`.`Titulo` AS `Titulo`,
+        `generos`.`Genero_tipo` AS `Genero_tipo`
+    FROM
+        ((`generos`
+        JOIN `animesgenero` ON ((`generos`.`Generos_id` = `animesgenero`.`id_Generos`)))
+        JOIN `animes` ON ((`animesgenero`.`id_Anime` = `animes`.`Anime_id`))) 
+where Genero_Tipo = genero;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Final view structure for view `100caps`
+--
+
+/*!50001 DROP VIEW IF EXISTS `100caps`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`Gaston`@`%` SQL SECURITY DEFINER */
+/*!50001 VIEW `100caps` AS select `animes`.`Titulo` AS `Titulo`,`animes`.`Episodios` AS `Episodios` from `animes` where (`animes`.`Episodios` >= 100) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `animelevel`
+--
+
+/*!50001 DROP VIEW IF EXISTS `animelevel`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`Gaston`@`%` SQL SECURITY DEFINER */
+/*!50001 VIEW `animelevel` AS select `animes`.`Titulo` AS `Titulo`,`animes`.`ranking` AS `ranking`,`FU_ANIMELEVEL`(`animes`.`ranking`) AS `AnimeLevel(ranking)` from `animes` order by `animes`.`Titulo` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `generosytitulos`
+--
+
+/*!50001 DROP VIEW IF EXISTS `generosytitulos`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`Gaston`@`%` SQL SECURITY DEFINER */
+/*!50001 VIEW `generosytitulos` AS select `animes`.`Titulo` AS `Titulo`,`generos`.`Genero_tipo` AS `Genero_tipo` from ((`generos` join `animesgenero` on((`generos`.`Generos_id` = `animesgenero`.`id_Generos`))) join `animes` on((`animesgenero`.`id_Anime` = `animes`.`Anime_id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `ranking`
+--
+
+/*!50001 DROP VIEW IF EXISTS `ranking`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`Gaston`@`%` SQL SECURITY DEFINER */
+/*!50001 VIEW `ranking` AS select `animes`.`Titulo` AS `Titulo`,`animes`.`ranking` AS `Ranking` from `animes` order by `animes`.`ranking` desc */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `sinopsys`
+--
+
+/*!50001 DROP VIEW IF EXISTS `sinopsys`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`Gaston`@`%` SQL SECURITY DEFINER */
+/*!50001 VIEW `sinopsys` AS select `animes`.`Titulo` AS `Titulo`,`sinopsis`.`Contenido` AS `contenido` from (`animes` left join `sinopsis` on((`animes`.`Anime_id` = `sinopsis`.`Sinopsis_id`))) order by `animes`.`Titulo` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `sinopyrating`
+--
+
+/*!50001 DROP VIEW IF EXISTS `sinopyrating`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`Gaston`@`%` SQL SECURITY DEFINER */
+/*!50001 VIEW `sinopyrating` AS select `animes`.`Titulo` AS `Titulo`,`sinopsis`.`Contenido` AS `contenido`,`rating`.`Calificacion` AS `calificacion` from ((`animes` left join `sinopsis` on((`animes`.`Anime_id` = `sinopsis`.`Sinopsis_id`))) left join `rating` on((`animes`.`Anime_id` = `rating`.`Rating_id`))) order by `animes`.`Titulo` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2022-08-26 10:14:08
